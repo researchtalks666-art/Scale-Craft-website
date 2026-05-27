@@ -493,25 +493,39 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
   body{cursor:auto;}
   a,button{cursor:pointer;}
 
-  /* Nav — hide pill links, show hamburger-less minimal nav */
+  /* Nav — hide pill links, show hamburger mobile nav */
   #nav{padding:18px 20px;}
   #nav.scrolled{padding:14px 20px;}
   .nav-links{display:none;}
   .nav-cta{display:none;}
   #nav.hero-hidden .nav-cta{display:none;}
+  
+  .mobile-menu-toggle {
+    display: flex;
+  }
+  .mobile-menu-toggle.open .line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .mobile-menu-toggle.open .line:nth-child(2) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
 
   /* Hero */
-  .hero-text-l{left:20px;right:20px;bottom:auto;top:50%;transform:translateY(20px);max-width:100%;}
+  #hero-logo-wrap{display:block; top:36%;}
+  .hero-text-l{top:58%;transform:none;text-align:center;left:20px;right:20px;bottom:auto;max-width:100%;display:flex;flex-direction:column;align-items:center;}
   .hero-text-r{right:20px;left:20px;bottom:60px;display:flex;justify-content:center;}
-  .hero-h1{font-size:clamp(28px,8vw,44px);}
-  .hero-sub{max-width:100%;}
-  #hero-logo-wrap{display:none;}
+  .hero-h1{font-size:clamp(26px,7.5vw,40px);text-align:center;}
+  .hero-sub{max-width:100%;text-align:center;}
+  .eyebrow{justify-content:center;}
+  .eyebrow::before{display:none;}
+  #hero-logo-wrap{display:block;}
   .scroll-pct{display:none;}
 
   /* Who We Are */
   .who-inner{padding:0 20px;gap:36px;}
   .who-top{flex-direction:column;align-items:center;gap:24px;}
   #logo3d-zone{width:260px;height:260px;}
+  #s3d-svg{width:100%!important;height:100%!important;}
   .bm-grid{grid-template-columns:1fr 1fr;}
 
   /* About */
@@ -530,6 +544,8 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
   .srv-static{width:100%;padding:28px 22px 20px;}
   .srv-divider{display:none;}
   .srv-expand{width:100%!important;opacity:1!important;padding:0 22px 22px!important;height:auto;}
+  .srv-tags{flex-direction:row;flex-wrap:wrap;gap:8px;}
+  .srv-tag{margin-bottom:0;}
   .srv-know-more{font-size:11px;padding:14px 28px;}
 
   /* Brand Meaning */
@@ -540,11 +556,12 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
   #how-we-work{padding:60px 20px;}
   .hww-inner{grid-template-columns:1fr;gap:40px;}
   .hww-left{padding-right:0;}
-  .hww-right{height:360px;justify-content:center;}
-  .orbit-scene{width:340px;height:340px;}
+  .hww-right{height:auto;width:100%;max-width:340px;aspect-ratio:1/1;margin:0 auto;justify-content:center;}
+  .orbit-scene{width:100%;max-width:340px;height:auto;aspect-ratio:1/1;}
+  .orbit-node-label{display:none !important;}
 
   /* Dialog */
-  #dialog-box{max-height:95vh;}
+  #dialog-box{max-height:95vh;-webkit-overflow-scrolling:touch;}
   .dialog-inner{grid-template-columns:1fr;}
   .dialog-left{padding:32px 24px 20px;border-right:none;border-bottom:0.5px solid var(--border);}
   .dialog-right{padding:24px;}
@@ -557,11 +574,11 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
 
   /* Footer */
   .footer-main{padding:40px 20px 32px;}
-  .footer-category{grid-template-columns:1fr;gap:0;}
-  .footer-cat-label{padding:28px 0 16px;border-top:0.5px solid var(--border);font-size:8px;}
+  .footer-category{grid-template-columns:1fr 1fr;gap:24px 16px;}
+  .footer-cat-label{grid-column:span 2;padding:20px 0 10px;border-top:0.5px solid var(--border);font-size:9px;}
   .footer-category:first-child{border-top:none;}
   .footer-category:first-child .footer-cat-label{padding-top:0;}
-  .footer-col{margin-bottom:28px;}
+  .footer-col{margin-bottom:0;}
   .footer-col:last-child{margin-bottom:0;}
   .footer-bottom{flex-direction:column;align-items:flex-start;gap:16px;padding-top:28px;}
   .footer-links{display:none;}
@@ -572,7 +589,7 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
    RESPONSIVE — SMALL MOBILE  (max 480px)
 ══════════════════════════════════════════ */
 @media(max-width:480px){
-  .hero-h1{font-size:clamp(26px,9vw,38px);}
+  .hero-h1{font-size:clamp(24px,9vw,36px);}
   #logo3d-zone{width:220px;height:220px;}
   .bm-grid{grid-template-columns:1fr;}
   .stat-num{font-size:26px;}
@@ -581,6 +598,94 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
   .dialog-left{padding:24px 18px 16px;}
   .dialog-right{padding:18px;}
   .footer-socials{gap:8px;}
+}
+
+/* ── MOBILE MENU TOGGLE ── */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 14px;
+  background: transparent;
+  border: none;
+  cursor: none;
+  padding: 0;
+  z-index: 1000;
+  position: relative;
+  transition: opacity .5s;
+}
+.mobile-menu-toggle .line {
+  width: 100%;
+  height: 2px;
+  background-color: var(--w);
+  transition: transform .3s cubic-bezier(.4,0,.2,1), opacity .3s;
+}
+#nav.hero-hidden .mobile-menu-toggle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── MOBILE MENU OVERLAY ── */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+  background: rgba(6, 6, 8, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  z-index: 950;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+.mobile-menu-link {
+  font-family: var(--ff-head);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--w70);
+  text-decoration: none;
+  transition: color .3s, transform .3s;
+}
+.mobile-menu-link:hover {
+  color: var(--w);
+  transform: scale(1.05);
+}
+.mobile-menu-cta {
+  background: var(--w);
+  color: #000;
+  font-family: var(--ff-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 100px;
+  border: none;
+  margin-top: 12px;
+  cursor: none;
+  transition: transform .25s, box-shadow .25s;
+}
+.mobile-menu-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 28px rgba(255,255,255,.22);
 }
 </style>
 </head>
@@ -609,6 +714,10 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
     <a class="nav-link" href="#contact">Contact</a>
   </div>
   <button class="nav-cta" onclick="openDialog()">Start a Project →</button>
+  <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+    <span class="line"></span>
+    <span class="line"></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1159,6 +1268,18 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
 <!-- WHITE FLASH OVERLAY -->
 <div id="white-flash" style="position:fixed;inset:0;z-index:8000;background:#fff;opacity:0;pointer-events:none;transition:opacity 0.3s ease;"></div>
 
+<!-- MOBILE MENU OVERLAY -->
+<div id="mobile-menu" class="mobile-menu" onclick="handleMobileMenuOverlayClick(event)">
+  <div class="mobile-menu-links">
+    <a class="mobile-menu-link" href="#about" onclick="closeMobileMenu()">About</a>
+    <a class="mobile-menu-link" href="#services" onclick="closeMobileMenu()">Services</a>
+    <a class="mobile-menu-link" href="#services" onclick="closeMobileMenu()">Portfolio</a>
+    <a class="mobile-menu-link" href="#how-we-work" onclick="closeMobileMenu()">Insights</a>
+    <a class="mobile-menu-link" href="#contact" onclick="closeMobileMenu()">Contact</a>
+    <button class="mobile-menu-cta" onclick="openDialog(); closeMobileMenu();">Start a Project →</button>
+  </div>
+</div>
+
 <!-- DIALOG -->
 <div id="dialog-overlay" onclick="handleOverlayClick(event)">
   <div id="dialog-box" role="dialog" aria-modal="true" aria-label="Start a Project">
@@ -1320,6 +1441,38 @@ window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', windo
 // Hide nav on initial hero screen
 nav.classList.add('hero-hidden');
 
+// ── Mobile Menu ──
+const menuToggle = document.getElementById('menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function toggleMobileMenu() {
+  const isOpen = mobileMenu.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+function openMobileMenu() {
+  mobileMenu.classList.add('open');
+  menuToggle.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  menuToggle.classList.remove('open');
+  // Only restore overflow if the contact dialog is not open
+  if (!document.getElementById('dialog-overlay').classList.contains('open')) {
+    document.body.style.overflow = '';
+  }
+}
+
+function handleMobileMenuOverlayClick(e) {
+  if (e.target === mobileMenu) closeMobileMenu();
+}
+
 // ── Nav pill ──
 const navLinks = document.getElementById('nav-links');
 const navPill = document.getElementById('nav-pill');
@@ -1368,15 +1521,27 @@ const heroScrollPct = document.getElementById('scroll-pct');
 const siteEl = document.getElementById('site');
 
 function applyExpand(p) {
-  const size = 220 + p * 660;
+  const isMobile = window.innerWidth <= 768;
+  const startSize = isMobile ? 120 : 220;
+  const endSize = isMobile ? 480 : 880;
+  const size = startSize + p * (endSize - startSize);
+
   heroSvg.setAttribute('width', size);
   heroSvg.setAttribute('height', size);
   heroSvg.style.filter = `drop-shadow(0 0 ${40 + p*80}px rgba(255,255,255,${0.12 + p*0.22}))`;
   const bgOp = 1 - p;
   heroTL.style.opacity = bgOp;
-  heroTL.style.transform = `translateX(-${p * 140}px)`;
+  if (isMobile) {
+    heroTL.style.transform = `translateY(${p * 100}px)`;
+  } else {
+    heroTL.style.transform = `translateX(-${p * 140}px)`;
+  }
   heroTR.style.opacity = bgOp;
-  heroTR.style.transform = `translateX(${p * 140}px)`;
+  if (isMobile) {
+    heroTR.style.transform = `translateY(${p * 100}px)`;
+  } else {
+    heroTR.style.transform = `translateX(${p * 140}px)`;
+  }
   heroScrollInd.style.opacity = bgOp;
   heroScrollPct.style.opacity = Math.max(0, 1 - p * 5);
   heroScrollPct.textContent = p === 0 ? 'Scroll to expand' : Math.round(p * 100) + '%';
@@ -1424,6 +1589,7 @@ function triggerExpand() {
 
 function resetToHero(e) {
   if (e) e.preventDefault();
+  closeMobileMenu();
   siteEl.style.opacity = '0';
   siteEl.style.visibility = 'hidden';
   heroEl.classList.remove('gone');
