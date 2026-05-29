@@ -1788,6 +1788,8 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
         <div class="form-row full">
           <div class="form-field"><textarea id="cf-message" placeholder="Tell us about your project *"></textarea></div>
         </div>
+        <!-- Honeypot field - hidden from real users -->
+        <input type="text" id="cf-honeypot" name="honeypot" style="display:none;" tabindex="-1" autocomplete="off" />
         <div class="services-label">Services are interested in</div>
         <div class="services-grid">
           <label class="service-check"><input type="radio" name="service" /><span>Brand Strategy</span></label>

@@ -23,6 +23,10 @@ function isValidEmail(email) {
 
 // ── Contact Form Submission ──
 async function submitContactForm() {
+  // ── Honeypot check ──
+  const honeypot = document.getElementById('cf-honeypot').value;
+  if (honeypot) return;
+
   const nameEl    = document.getElementById('cf-name');
   const emailEl   = document.getElementById('cf-email');
   const phoneEl   = document.getElementById('cf-phone');
