@@ -29,6 +29,10 @@
 <meta name="twitter:description" content="We build scalable systems that drive real impact." />
 <meta name="twitter:image" content="assets/SClogo.png" />
 
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet" />
@@ -1586,7 +1590,7 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
         <span>Start a Project</span><span class="ba">→</span>
       </button>
       <div class="contact-phone reveal d4">
-        Or call <a href="tel:+919346878325">+91 93468 78325</a> · Remote · Worldwide
+        Remote · Worldwide
       </div>
     </div>
   </section>
@@ -1775,14 +1779,14 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
       <div class="dialog-right">
         <div class="dialog-label">Fill the form to request a quote:</div>
         <div class="form-row">
-          <div class="form-field"><input type="text" placeholder="Your Name *" /></div>
-          <div class="form-field"><input type="email" placeholder="Email *" /></div>
+          <div class="form-field"><input id="cf-name" type="text" placeholder="Your Name *" /></div>
+          <div class="form-field"><input id="cf-email" type="email" placeholder="Email *" /><div id="cf-email-error" style="color:#f87171;font-size:11px;margin-top:4px;display:none;">Please enter a valid email address.</div></div>
         </div>
         <div class="form-row full">
-          <div class="form-field"><input type="tel" placeholder="Phone (Optional)" /></div>
+          <div class="form-field"><input id="cf-phone" type="tel" placeholder="Phone (Optional)" /></div>
         </div>
         <div class="form-row full">
-          <div class="form-field"><textarea placeholder="Tell us about your project *"></textarea></div>
+          <div class="form-field"><textarea id="cf-message" placeholder="Tell us about your project *"></textarea></div>
         </div>
         <div class="services-label">Services are interested in</div>
         <div class="services-grid">
@@ -1796,7 +1800,7 @@ footer{background:var(--dark);border-top:0.5px solid var(--border);position:rela
           <label class="service-check"><input type="radio" name="service" /><span>Embedded &amp; Hardware</span></label>
         </div>
         <div class="dialog-actions">
-          <button class="btn-send" onclick="closeDialog()">Send Message</button>
+          <button class="btn-send" id="cf-submit-btn" onclick="submitContactForm()">Send Message</button>
           <button class="btn-ghost" onclick="closeDialog()">Start a project ✦</button>
         </div>
       </div>
@@ -2456,5 +2460,6 @@ document.querySelectorAll('.footer-cat-label').forEach(label => {
   });
 });
 </script>
+
 </body>
 </html>
